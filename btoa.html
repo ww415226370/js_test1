@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!--[if IE]>
+	<script src="./base64-polyfill.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<input type="file" value="file" />
+</body>
+<script>
+	//IE9以下不支持
+	var str = '你好!';
+	var base64Str = window.btoa(encodeURIComponent(str)); //转base64
+	console.log(decodeURIComponent(window.atob(base64Str))); //转普通字符
+
+	var read = new FileReader();
+
+	read.onload = function(e) {
+		console.log(e.target.result)
+		// console.log(window.atob(/^[^\,]*?\,(.*)/.exec(e.target.result)[1]))
+	}
+
+	var ipt = document.querySelector('input');
+
+	ipt.onchange = function () {
+		read.readAsText(ipt.files[0]);
+	}
+
+	
+</script>
+</html>

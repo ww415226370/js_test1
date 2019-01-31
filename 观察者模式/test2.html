@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Object spread, rest</title>
+</head>
+<body>
+
+</body>
+<script>
+	class Game { constructor(name) { this.name = name; } getMessage() { return `I like ${this.name}!`; } } const doom = new Game('Doom'); 
+	console.log(doom instanceof Game );
+
+	const doom1 = {
+		...doom
+	}
+
+	const doom2 = Object.assign(new Game(), doom)
+	console.log(doom2.__proto__);
+</script>
+</html>

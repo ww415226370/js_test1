@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	function Element(tagName, props, children) {
+		this.tagName = tagName;
+		this.props = props;
+		this.children = children;
+	}
+
+	function el(tagName, props, children){
+		return new Element(tagName, props, children);
+	}
+
+	let dom = el(
+		'ul', 
+		{ id: 'hehe'},
+		[
+			el('li', {class: 'b'}, ['item1']),
+			el('li', {class: 'b'}, ['item1']),
+			el('li', {class: 'b'}, ['item1'])
+		]
+	);
+
+	function render(dom){
+		let el = document.createElement(dom.tagName);
+
+		let props = dom.props || {};
+		for(let key in props){
+			el.setAttribute(key, props[key]);
+		}
+
+		let children = dom.children;
+
+		children.forEach((item) => {
+			let child = (item instanceof Element) ? render(item) : item;
+			el.append(child);
+		});
+
+		return el;
+	}
+
+	document.body.append(render(dom));
+
+
+</script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<iframe src="http://127.0.0.1:8082" id="child" onload="test()"></iframe>
+</body>
+<!-- <script>
+	iframe = document.createElement('iframe'),
+    iframe.src = 'http://localhost:8082';
+    document.body.appendChild(iframe);
+    var state = 0;
+    
+    iframe.onload = function() {
+  		if(state === 1) {
+          	var data = iframe.contentWindow.name;
+          	console.log(data);
+          	iframe.contentWindow.document.write('');
+          	iframe.contentWindow.close();
+			document.body.removeChild(iframe);
+      	} else if(state === 0) {
+          	state = 1;
+          	iframe.contentWindow.location = 'http://localhost:8081';
+      	}
+    };
+
+</script> -->
+<script type="text/javascript">
+	window.onload = function() {
+		
+		var child = document.getElementById('child');
+
+        child.contentWindow.postMessage("主页面消息", 
+                "*")
+         window.addEventListener('message', function(e) {
+	  		console.log(e.data);
+		},false);
+		
+	}
+
+	function test() {
+		//3:
+		// console.log(document.getElementById('myIFrame').contentWindow.name);
+	}
+</script>
+</html>

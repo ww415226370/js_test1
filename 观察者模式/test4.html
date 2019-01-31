@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.css"/>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-right nav-menu">
+        <a href="#" class="nav-item">Index</a>
+        <a href="#about" class="nav-item">About</a>
+        <a href="#settings" class="nav-item">Settings</a>
+    </div>
+</nav>
+<div id="content"></div>
+<script>
+    var Router = function (options) {
+    this.routes = options.routes || [];
+    this.currentRoute = {};
+    this.init();
+};
+
+Router.prototype = {
+    init: function () {
+        window.addEventListener('hashchange', function () {
+                this.handleUrl(window.location.hash);
+            }.bind(this)
+        );
+        this.handleUrl(window.location.hash);
+    },
+
+    findPreviousRoute: function () {
+        return this.currentRoute;
+    },
+
+    findNewActiveRoute: function (url) {
+        return this.routes.find(function (routeItem) {
+            return url === routeItem.match;
+        });
+    },
+
+    handleUrl: function (activeUrl) {
+        var url = activeUrl.slice(1);
+        var previousRoute = this.findPreviousRoute();
+        var newRoute = this.findNewActiveRoute(url);
+
+        Promise.resolve()
+            .then(function () {
+                previousRoute && previousRoute.onLeave && previousRoute.onLeave()
+            })
+            .then(function () {
+                newRoute && newRoute.onBeforeEnter && newRoute.onBeforeEnter()
+            })
+            .then(function () {
+                newRoute && newRoute.onEnter && newRoute.onEnter()
+            })
+            .then(function () {
+                this.currentRoute = newRoute || {};
+                console.log('%c route is changed: current route - ' + (this.currentRoute.match || '#'), 'background: #222; color: #bada55');
+            }.bind(this));
+    }
+};
+
+var router = new Router({
+    routes: [
+        {
+            match: '',
+            onBeforeEnter: function () {
+                console.log('onBeforeEnter index')
+            },
+            onEnter: function () {
+                console.log('onEnter index')
+            },
+            onLeave: function () {
+                console.log('onLeave index')
+            }
+        },
+        {
+            match: 'settings',
+            onBeforeEnter: function () {
+                console.log('onBeforeEnter settings')
+            },
+            onEnter: function () {
+                console.log('onEnter settings')
+            },
+            onLeave: function () {
+                console.log('onLeave settings')
+            }
+        },
+        {
+            match: 'about',
+            onBeforeEnter: function () {
+                console.log('onBeforeEnter about')
+            },
+            onEnter: function () {
+                console.log('onEnter about');
+                document.querySelector('#content').innerHTML = '<h1>About</h1>';
+            },
+            onLeave: function () {
+                console.log('onLeave about');
+                document.querySelector('#content').innerHTML = '';
+            }
+        }
+    ]
+});
+</script>
+</body>
+</html>

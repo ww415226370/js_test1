@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	function fun1() {
+		console.log(fun1.caller)
+		console.log(11);
+	}
+
+	function fun2(){
+		console.log(fun1.caller)
+		fun1();
+	}
+	fun2();
+</script>
+</html>

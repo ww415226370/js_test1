@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		* { margin:0; padding:0; }
+
+#wrap {
+
+overflow:hidden;/*// (这行代码是重点，否则你会看到页面很长很长)*/
+
+padding:0;
+
+padding-left:180px;/*（内补丁）*/
+
+}
+
+#left,#right {
+
+height:auto;
+
+margin-bottom:-1000px;/*（外补丁）*/
+
+padding-bottom:1000px;/*（内补丁）*/
+
+}
+
+#left {
+
+display:inline;
+
+float:left;
+
+width:180px;
+
+margin-left:-180px;/*（外补丁）*/
+
+background: #0CF;
+
+}
+
+#right{
+    float:right;
+    width:100%;
+    background: #FC6;
+}
+	</style>
+</head>
+<body>
+	
+
+<div id="wrap">
+    <div id="left">11111<br>111<br>11111<br>1111111<br><br></div>
+    <div id="right">
+    </div>
+</div>
+</body>
+</html>

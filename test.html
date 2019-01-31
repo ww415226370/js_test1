@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .find-div-body{
+        position: relative;
+        top:30px;
+        right:0px;
+        width:400px;
+        height:200px;
+        padding:8px;
+        background-color: #FFFFFF;
+        border: #cccccc solid 1px;
+        border-radius: 3px;
+    }
+    .find-div-body:before{
+        box-sizing: content-box;
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        top: -16px;
+        right:41px;
+        border:8px solid transparent;
+        border-bottom:8px solid #FFFFFF;
+        display: block;
+        content:'';
+        z-index: 12;
+    }
+    .find-div-body:after{
+        box-sizing: content-box;
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        top: -18px;
+        right:40px;
+        border:9px solid transparent;
+        border-bottom:9px solid #cccccc;
+        display: block;
+        content:'';
+        z-index:10;
+    }
+</style>
+<body>
+    <div class="find-div-body">
+</div>
+
+</body>
+</html>

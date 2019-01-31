@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div id="out" class="out">
+		<div id="inner">
+			inner
+		</div>
+	</div>
+	<button onclick="change()">change</button>
+</body>
+<script type="text/javascript">
+	var change;
+	window.onload = function() {
+		var opt = {
+			childList: true,
+			attributes: true,
+			characterData: true
+		};
+
+		var io = new MutationObserver(handler);
+
+		function handler(mutations, obsever) {
+			console.log(mutations);
+		}
+
+		io.observe(document.querySelector('#inner'), opt);
+
+		change = function() {
+			document.querySelector('#inner').innerHTML = 'HEHE';
+		}
+	}
+</script>
+</html>

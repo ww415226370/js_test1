@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>代理模式</title>
+</head>
+<body>
+</body>
+<script>
+	//卖家要寄外卖
+
+	//外卖
+	function Package(recevicerInfo) {
+		this.recevicerInfo = recevicerInfo;
+	}
+	
+	//饭店老板
+	function Seller(package) {
+		this.package = package;
+		this.send = function (packageName) {
+			console.log('外卖： ' + packageName );
+			console.log('收件人信息:');
+			console.log('      收件人： ' + this.package.recevicerInfo.name );
+			console.log('      地址： ' + this.package.recevicerInfo.address );
+			console.log('      电话： ' + this.package.recevicerInfo.phone );
+		}
+	}
+
+	// function ExpressBrother (package) {
+	// 	this.package = package;
+	// 	this.send = function(packageName) {
+	// 		return new Seller(package).send(packageName);
+	// 	}
+	// }
+
+	var recevicerInfo = {
+		name: 'xx',
+		address: '南窑头',
+		phone: '110'
+	}
+
+	var sell = new Seller(new Package(recevicerInfo));
+
+	sell.send('土豆片炒肉盖浇饭');
+
+	// new ExpressBrother(new Package(recevicerInfo)).send('土豆片炒肉盖浇饭');
+
+</script>
+</html>

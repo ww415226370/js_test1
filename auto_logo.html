@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+body {
+  text-align: center;
+}
+
+#viewport {
+  margin: 0 auto;
+  border: dashed 1px #cccccc;
+  padding: 20px;
+}
+
+#viewport img {
+  width: 100%;
+}
+
+p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+</style>
+<body>
+	<div id="viewport">
+		<img src="./logo.svg" alt="Missouri State University" />
+	</div>
+	<p>Use the following buttons to apply different viewport scales to the Missouri State University logo. The dashed line indicates the applied viewport boundaries.</p>
+	<button onclick="resizeLarge()">Large</button>
+	<button onclick="resizeMedium()">Medium</button>
+	<button onclick="resizeSmall()">Small</button>
+</body>
+<script>
+	function resizeLarge() {
+  document.getElementById("viewport").style.width = "auto";
+}
+
+function resizeMedium() {
+  document.getElementById("viewport").style.width = "450px";
+}
+
+function resizeSmall() {
+	document.getElementById("viewport").style.width = "200px";
+}
+</script>
+</html>

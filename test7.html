@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div>
+		outer
+		<button>test</button>
+	</div>
+	
+</body>
+<script>
+	let btn = document.querySelector('button');
+	let div = document.querySelector('div');
+	class Show {
+		handleEvent(event) {
+			console.log(event.type)
+		}
+	};
+
+	let show= new Show();
+
+	// btn.addEventListener('mousedown', show);
+
+	// btn.addEventListener('mouseup', show);
+
+	function a(e) {
+		e.stopImmediatePropagation();
+		console.log(e.bubbles);
+	}
+
+
+	function b(e) {
+		e.stopImmediatePropagation();
+		console.log(2);
+	}
+
+	btn.addEventListener('click', a, false);
+	div.addEventListener('click', b, false);
+
+
+	// btn.addEventListener('click', b);
+</script>
+</html>

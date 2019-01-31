@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	function flattenDepth(arr, dep = 4){
+		let result = [];
+		let d = dep;
+		arr.forEach(item => {
+			if(Array.isArray(item) && --d > 0){
+				result.push(...(flattenDepth(item, d)));
+			}else{
+				result.push(item);
+			}
+		})
+
+		return result;
+	}
+
+	let arr = [1, [2, [3, [4], 5]]];
+	console.log(flattenDepth(arr));
+</script>
+</html>

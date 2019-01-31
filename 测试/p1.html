@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div>
+    <form>
+        <input type="text" name="" ng-model="count">
+    </form>
+    <button ng-click="addCount">add count</button>
+    <span>count: </span><span ng-bind="count"></span>
+</div>
+</body>
+<script>
+    function $scope() {
+        this.$watcher = [];
+    }
+
+    $scope.prototype.$watch = function(name, exp, listener) {
+        this.$watcher.push({
+            name: name,
+            newVal: exp,
+            last: '',
+            listener: listener || function() {}
+        })
+    }
+
+    $scope.prototype.$digest = function() {
+        var inputList = document.querySelectorAll('input[ng-model]');
+        var textList = document.querySelectorAll('span[ng-bind]');
+        var dirty = true;
+        while(dirty) {
+            dirty = false;
+            for(var i = 0; i < this.$watcher.length; i++){
+                var newVal = this.$watcher[i].newVal();
+                var oldVal = this.$watcher[i].last;
+                console.log(newVal, oldVal)
+                if(newVal !== oldVal){
+                    dirty = true;
+                    this.$watcher[i].listener(newVal, oldVal);
+                    this.$watcher[i].last = newVal;
+
+                    for(let item of inputList){
+                        var variableName = item.getAttribute('ng-model');
+                        if(variableName === this.$watcher[i].name){
+                            item.value = newVal;
+                        }
+                    }
+                    for(let item of textList){
+                        var variableName = item.getAttribute('ng-bind');
+                        if(variableName === this.$watcher[i].name){
+                            item.innerHTML = newVal;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    window.onload = function() {
+        var scope = new $scope();
+        scope.count = 1;
+        scope.addCount = function() {
+            scope.count++;
+        }
+
+        var inputList = document.querySelectorAll('input[ng-model]');
+        var textList = document.querySelectorAll('span[ng-bind]');
+        var btn = document.querySelectorAll('button[ng-click]');
+        var allSelector = [...inputList, ...textList];
+
+        for(let item of inputList){
+            item.addEventListener('input', (function(key) {
+                return function() {
+                    scope[key] = item.value;
+                    scope.$digest();
+                }
+            })(item.getAttribute('ng-model')))
+        }
+
+        for(let item of btn){
+            item.addEventListener('click', (function(key){
+                return function() {
+                    scope[key]();
+                    scope.$digest();
+                }
+            })(item.getAttribute('ng-click')));
+        }
+
+        for(var key in scope){
+            if(key != '$watcher' && typeof (scope[key]) !== 'function'){
+                scope.$watch(key, (function(key){
+                    return function() {
+                        return scope[key];
+                    }
+                })(key))
+            }
+        }
+
+        scope.$digest();
+
+    }
+</script>
+</html>

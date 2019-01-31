@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>发布/订阅模式</title>
+</head>
+<body>
+
+</body>
+<script>
+	let event = {};
+	((e) => {
+
+		let dep = new Map();
+		let id = 0;
+
+		e.on = (type, fun) => {
+			if(!dep[type]) {
+				dep[type] = [];
+			}
+			dep[type].push({
+				id: ++id,
+				fun: fun
+			});
+			return id;
+		}
+
+		e.emit = (type, data) => {
+			if(!dep[type]) return;
+			dep[type].forEach((item) => {
+				item.fun(type, data);
+			});
+		}
+
+		e.removeListener = (type, fun) => {
+			let deleted = false;
+			if(fun) {
+				dep[type].forEach((item ,index) => {
+					if(item.fun === fun) {
+						dep[type].splice(index, 1);
+						return deleted = true;
+					}
+				});
+			}else{
+				for(let key in dep){
+					dep[key].forEach((item ,index) => {
+						if(item.id === type){
+							dep[key].splice(index, 1);
+							return deleted = true;
+						}
+					});
+				}
+			}
+			return deleted;
+		}
+
+		e.removeAllListener = (type) => {
+			delete dep[type];
+		}
+
+	})(event);
+
+	////////////////////////////////////
+
+	let say = (type, data) => {
+		console.log('订阅1:' + type, '传值:' + data);
+	};
+
+	let say1 = (type, data) => {
+		console.log('订阅1:' + type, '传值:' + data);
+	};
+
+	event.on('say', say);
+
+	var event2 = event.on('say',(type, data) => {
+		console.log('订阅2:' + type, '传值:' + data);
+	});
+
+	event.on('say',(type, data) => {
+		console.log('订阅3:' + type, '传值:' + data);
+	});
+
+	event.removeListener('say', say);
+
+	// event.removeListener(event2);
+
+	// event.removeAllListener('say');
+
+	event.emit('say', 'hello！');
+
+</script>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+const obj = {
+	0: 1,
+	1: 2
+}
+console.log(Array.prototype)
+obj[Symbol.iterator] = Array.prototype[Symbol.iterator]
+
+let a = obj[Symbol.iterator]();
+
+
+
+
+(async function(){
+	return new Promise((resolve, reject)=> {
+		setTimeout(() => {
+			resolve(1);
+		},1000)
+	})
+	await new Promise((resolve, reject)=> {
+		setTimeout(() => {
+			resolve(2);
+		},1000)
+	})
+})();
+</script>
+</html>

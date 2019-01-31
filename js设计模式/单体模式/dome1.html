@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>单体模式</title>
+</head>
+<body>
+	<button id="loginBtn">加登录框</button>
+</body>
+<script>
+	//一、单例模式：保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+	//二、单例模式实现原理：
+   	//用一个变量来标识当前是否已经为某个类创建过对象，如果是，则在下一次获取该类的实例时，直接返回之前创建的对象。即创建了的单例缓存
+
+	//实现1： 最简单的对象字面量
+	var singleton = {
+        attr : 1,
+        method : function(){ return this.attr; }
+    }
+
+
+
+    //实现2： 使用闭包，判断变量是否为空
+	let master = (function() {
+		let instance = null;
+		function Master (name) {
+			this.name = name;
+			this.say = () => {
+				console.log('my name is' + this.name, 'i am Master');
+			}
+		}
+		return function(name) {
+			if(!instance) {
+				instance = new Master(name);
+			}
+			return instance;
+		}
+	})();
+
+	console.log(master('111'), master('222'))
+
+
+	//实现3：构造函数内部判断
+	function Construct(name) {
+		this.name = name;
+
+		var instance;
+		if(Construct.instance){
+			return Construct.instance;
+		} 
+		// Construct = function () {
+		// 	return instance;
+		// }
+
+		Construct.instance = this;
+		// instance = this;
+	}
+
+	Construct.prototype.say =function () {
+		console.log('my name is' + this.name);
+	}
+
+	
+	var a = new Construct('大毛');
+	var b = new Construct('二毛');
+	console.log(a, b,a === b);
+
+
+	//dome1 //缺点区保证单例的功能和创建元素功能在一块
+	var createLoginLayer=(function(){
+    	var div;
+	    return function(){
+	        if(!div){
+	            div=document.createElement('div');
+	            div.innerHTML = '<input type="text"></input>';
+	            document.body.appendChild(div);
+	            //创建一个登录框
+	        }
+	        return div;
+	    }
+	})();
+
+	document.getElementById('loginBtn').onclick=function(){
+	    var loginLayer=createLoginLayer();
+	    loginLayer.style.display='block';
+	};
+
+	//dome2
+	//获取单例
+	var getSingle = function(fn){
+	    var result;
+	    return function (){
+    		return result || (result=fn.apply(this,arguments));
+	    };
+	};
+
+	//创建div登录框
+	var createLoginLayer=function (type){
+		return function() {
+			var el= document.createElement(type);
+		    document.body.appendChild(el);
+		    return el;
+		}
+	};
+	//创建input登录框
+
+	var createDiv	= getSingle(createLoginLayer('div'));
+	var createdivSpan	= getSingle(createLoginLayer('span'));
+	createDiv().innerHTML = 'div';
+	// createdivSpan().innerHTML = 'span';
+	createDiv().innerHTML = 'div11';
+</script>
+</html>

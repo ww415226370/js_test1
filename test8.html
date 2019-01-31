@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	Function.prototype.before = function(beforeFn){
+		var slef = this;
+		return function() {
+			beforeFn.apply(this, arguments);
+			slef.apply(this, arguments);
+		}
+	}
+
+	function b() {
+		console.log('b');
+	}
+
+	function a() {
+		console.log('a');
+	}
+
+	b.before(a)();
+
+	for(var i = 0; i< 3; i++){
+	}
+</script>
+</html>

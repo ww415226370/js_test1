@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	let P = function(fn) {
+		this.handle = fn;
+	}
+
+	P.prototype.then = function(fn) {
+		this.handle(fn)
+	}
+
+	let a = new P((r, j) => {
+		r(1)
+	})
+
+	a.then(function(data) {
+		console.log(data)
+	})
+</script>
+</html>

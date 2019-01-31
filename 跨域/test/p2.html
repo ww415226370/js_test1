@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	window.name = 'csds';
+</script>
+<script type="text/javascript">
+
+	window.onload = function() {
+		
+		parent.window.postMessage("子页面消息", 
+                "*")
+		window.addEventListener('message', function(e) {
+	  		console.log(e.data);
+			},false);
+		// addScriptTag("http://127.0.0.1:8081/jsonp?callback=foo")
+	}
+
+	function addScriptTag(src) {
+		var script = document.createElement('script');
+		script.setAttribute("type","text/javascript");
+		script.src = src;
+		document.body.appendChild(script);
+		document.body.removeChild(script);
+		
+	}
+
+
+	function foo(data) {
+		console.log(11)
+	  console.log('Your public IP address is: ' + data);
+	};
+
+	function simpleCors() {
+		var xhr = new XMLHttpRequest()
+		xhr.open("GET", "http://127.0.0.1:8081/simplecors", true)
+		xhr.withCredentials = true;//发送Cookie,开发者必须在AJAX请求中打开withCredentials属性。false表示不发送
+		xhr.send();
+	}
+
+	// simpleCors()
+
+	function notSimpleCors() {
+		var xhr = new XMLHttpRequest()
+		xhr.open('PUT', "http://127.0.0.1:8081/notSimpleCors", true);
+		xhr.setRequestHeader('X-Custom-Header', 'value');
+		xhr.withCredentials = true;//发送Cookie,开发者必须在AJAX请求中打开withCredentials属性。false表示不发送
+		xhr.send();
+	}
+
+	notSimpleCors();
+
+</script>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	@supports(display: grid) {
+		.grid-container {
+			width: 200px;
+			height: 200px;
+			border: 1px solid black;
+			display: grid;
+			grid-template-columns: 1fr auto 1fr;
+			grid-template-rows: 40px 40px 20px;
+			grid-column-gap: 10px;
+			grid-row-gap: 5px;
+			justify-content: start;
+			align-content: center;
+			grid-template-areas: 
+			"a a a"
+			". . .";
+		}
+
+		.grid-container > div{
+			border: 1px solid red;
+			text-align: center;
+		}
+
+		.grid-container1 {
+			width: 200px;
+			height: 200px;
+			border: 1px solid black;
+			display: grid;
+			grid-template-columns: 40px 40px 20px;
+			grid-template-rows: 40px 40px 20px;
+			grid-column-gap: 10px;
+			grid-row-gap: 5px;
+			justify-content: start;
+		}
+
+		.grid-container1 > div{
+			border: 1px solid red;
+			text-align: center;
+		}
+	}
+</style>
+<body>
+	<div class="grid-container">
+		<div style="grid-area: a;">1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+		<div>6</div>
+	</div>
+	<div class="grid-container1">
+		<div style="grid-column: 1;grid-row: 1/4;">1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+		<div>6</div>
+	</div>
+</body>
+</html>

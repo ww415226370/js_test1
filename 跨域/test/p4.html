@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	window.onload = function() {
+		console.log(parent.window)
+		window.addEventListener('message', function(e) {
+	  		alert(e.data);
+		},false);
+	}
+</script>
+</html>

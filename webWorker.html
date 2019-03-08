@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  	.bor {
+  		background:#F4FFFA;
+       width:100%; 
+       height:210px; 
+       border:41px solid #ddd;   
+       border-image:url(111111.png) 70 repeat;
+  	}
+  </style>
+</head>
+<body style="min-height: 1000px;">
+	<div class="bor">
+		
+	</div>
+</body>
+<script>
+function createWorker(f) {
+  var blob = new Blob(['(' + f.toString() +')()']);
+  var url = window.URL.createObjectURL(blob);
+  var worker = new Worker(url);
+  return worker;
+}
+
+var pollingWorker = createWorker(function (e) {
+  var cache;
+  self.postMessage('11');
+});
+
+pollingWorker.onmessage = function (e) {
+  console.log(e)
+}
+
+pollingWorker.postMessage('init');
+
+</script>
+</html>

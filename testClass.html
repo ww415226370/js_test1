@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		class A {
+		  static myStaticProp (){}
+
+		  constructor() {
+		    console.log(A.myStaticProp); // 42
+		  }
+		}
+
+		class B extends A{
+			constructor() {
+				super();
+			}
+
+			b(a) {
+				console.log(super.say)
+			}
+		}
+
+		console.log(B.myStaticProp);
+
+		function aa() {
+			throw Error("错误")
+		}
+
+		function bb() {
+		
+				aa()
+			
+		}
+		function cc() {
+			try{
+				bb()
+			}catch(e) {
+				console.log(e)
+			}
+		}
+		cc()
+	</script>
+</body>
+</html>

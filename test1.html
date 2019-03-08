@@ -27,8 +27,7 @@ reader.onload = function(event) {
     if (!eleImg.src) {
         eleResult.appendChild(eleImg);
     }
-    var blob = URL.createObjectURL(new Blob([event.target.result]));
-    eleImg.src = blob;
+    eleImg.src = event.target.result;
     // blob本地存储
     // localforage.setItem('zxxImg', blob);
 };
@@ -36,6 +35,7 @@ reader.onload = function(event) {
 var file = null;
 document.getElementById('fileImg').addEventListener('change', function (event) {
     file = event.target.files[0];
+    // eleImg.src = blob;
     // 选择的文件是图片
     if (file.type.indexOf("image") == 0) {
         reader.readAsDataURL(file);    

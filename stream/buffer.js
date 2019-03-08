@@ -7,6 +7,7 @@ Buffer.prototype.myCopy = function(to, start, sourceStart, sourceEnd){
 
 let buf1 = Buffer.from('前');
 let buf2 = Buffer.from('端');
+console.log(buf1)
 
 let buffer = Buffer.alloc(6);
 

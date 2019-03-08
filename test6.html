@@ -35,6 +35,7 @@ const callback = (self, value, status) => {
    */
   if (self._status !== PENDING) return
   self._status = status
+console.log(self)
   /**
    * 回调函数
    */
@@ -49,7 +50,6 @@ const callback = (self, value, status) => {
     }
     self._fulfilledQueues = self._rejectedQueues = self._status = self._value = self._resolve = self._reject = undefined
   }
-
   if (value instanceof MyPromise) {
     /**
      * 如果回调函数的参数是一个promise对象，必须等该promise状态改变后在执行当前回调
@@ -239,7 +239,11 @@ class MyPromise {
 new MyPromise((r, j) => {
   r(11);
 }).then(function(res){
-	console.log(res)
+	return new MyPromise((r, j) => {
+    r(22);
+  })
+}).then(function(cc){
+  console.log(cc)
 })
 
 </script>

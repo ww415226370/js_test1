@@ -8,20 +8,29 @@
 	
 </body>
 <script>
-	let P = function(fn) {
-		this.handle = fn;
+	// let P = function(fn) {
+	// 	this.handle = fn;
+	// }
+
+	// P.prototype.then = function(fn) {
+	// 	this.handle(fn)
+	// }
+
+	// let a = new P((r, j) => {
+	// 	r(1)
+	// })
+
+	// a.then(function(data) {
+	// 	console.log(data)
+	// })
+	var a = 1;
+	function c() {
+		var a = 2;
+		function b() {
+			console.log(this.a);
+		}
+		b()
 	}
-
-	P.prototype.then = function(fn) {
-		this.handle(fn)
-	}
-
-	let a = new P((r, j) => {
-		r(1)
-	})
-
-	a.then(function(data) {
-		console.log(data)
-	})
+	c()
 </script>
 </html>
